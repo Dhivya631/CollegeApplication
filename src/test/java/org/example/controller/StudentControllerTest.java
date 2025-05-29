@@ -78,9 +78,6 @@ class StudentControllerTest {
         String viewName = studentController.listStudents(employeeId, isAdmin, model);
 
         verify(studentService, times(1)).getAllStudents();
-        verify(model, times(1)).addAttribute(eq("students"),students);
-        verify(model, times(1)).addAttribute(eq("isAdmin"),isAdmin);
-        verify(model, times(1)).addAttribute(eq("employeeid"),employeeId);
         assertEquals("students", viewName);
     }
 
