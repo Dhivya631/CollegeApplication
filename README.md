@@ -1,8 +1,7 @@
-# 💰 Loan Management System
+# 💰 Engineering College Application
 
 ## 📌 Overview
-The **Loan Management System** is a Spring Boot-based web application that enables users to apply for loans, allows officers to review and approve them, and administrators to manage the entire system. It integrates robust authentication using **JWT** and **Spring Security**, and supports reporting with **JasperReports**. The application maintains high code quality using **JUnit**, **JaCoCo**, and **SonarLint**, and uses **PostgreSQL** as its relational database.
-
+The **Engineering College Application** is a comprehensive management system built using Spring Boot, designed to streamline core operations such as student admissions, course scheduling, and faculty management. It features a robust backend architecture with over 90% test coverage using **JUnit** and **JaCoCo**, and ensures high code quality through the integration of SonarLint, making it maintainable and production-ready.
 ---
 
 ## 🔧 Technology
@@ -12,148 +11,107 @@ The **Loan Management System** is a Spring Boot-based web application that enabl
 |--------------------|---------------------------------------------------|
 | Java 18            | Core programming language                         |
 | Spring Boot        | Backend framework for building REST APIs          |
-| Spring Security + JWT | Secure authentication and authorization        |
 | Spring Data JPA    | ORM tool to interact with PostgreSQL              |
-| PostgreSQL         | Relational database                               |
+| MySQL              | Relational database                               |
 | JasperReports      | PDF report generation tool                        |
 | JUnit 5            | Unit testing framework                            |
 | JaCoCo             | Code coverage tool                                |
 | Docker             | Containerization of app and database              |
 | Docker Compose     | Multi-container orchestration                     |
-| HTML, Bootstrap    | Frontend view layer                               |
+| JSP, Bootstrap CSS | Frontend view layer                               |
 | JavaScript         | UI interactions and validations                   |
 | GitHub Actions     | CI/CD workflows for automated builds              |
 
 ---
 
-## 🧩 Modules & Features
+## 🧩 Features
 
-### 🧑‍💼 User Module
-- User registration and login
-- JWT-based authentication
-- Role-based access (`user`, `officer`, `admin`)
+- 📚 Course and subject management for departments
 
----
+- 🧑‍🎓 Student admission and profile creation
 
-### 💳 Loan Module
-- Users can apply for a loan
-- Loans are reviewed by officers
-- EMIs are calculated automatically
+- 🧑‍🏫 Faculty assignment and class scheduling
 
----
+- 🧪 Robust testing with JUnit 5 and Mockito
 
-### 🧾 Loan Approval Request
-Used when officer makes a decision on a loan.
+- 📈 Code coverage consistently above 90% using JaCoCo
 
----
-
-### 👮 Officer Module
-- Officer can view and approve/reject loan requests
-
----
-
-### 📄 Report Module
-- JasperReports integration to generate:
-  - Loan Summary Reports
-  - Approval Status Reports
-  - Repayment Reports (optional)
+- 🧹 Static code analysis using SonarLint to ensure clean code
 
 ---
 
 ## 🧬 ER Diagram
 
 ```text
-+------------------------+
-|        User           |
-+------------------------+
-| id (PK)               |
-| name                  |
-| username              |
-| email                 |
-| password              |
-| pancard               |
-| aadhacard             |
-| role                  |
-| phoneno               |
-+------------------------+
-         |
-         | 1
-         |
-         | <——
-         |        n
-+------------------------+
-|        Loan            |
-+------------------------+
-| id (PK)                |
-| user_id (FK)           |
-| assigned_officer_id(FK)|
-| address                |
-| amount                 |
-| monthlyIncome          |
-| otherExpenses          |
-| tenure                 |
-| emi                    |
-| loanApprovalScore      |
-| status                 |
-| previousStatus         |
-| remarks                |
-+------------------------+
-         |
-         | n
-         |
-         |——>
-         | 1
-+------------------------+
-|       Officer          |
-+------------------------+
-| id (PK)                |
-| name                   |
-| username               |
-| email                  |
-| password               |
-| phoneno                |
-| role = 'officer'       |
-+------------------------+
++-------------+           +-------------+            +---------------+
+|   Admin     |           | Department  |<--------+  |   Semester    |
++-------------+           +-------------+         |  +---------------+
+| id (PK)     |           | id (PK)     |         |  | id (PK)       |
+| email       |           | name        |         +--| name          |
+| password    |           | description |            | department_id |
++-------------+           | hod         |            +---------------+
+                          +-------------+                    ^
+                                                            n|
+                                                             |
++-------------+           +-------------+          +---------+---------+
+|  Student    |           |  Course     |<------+  |  CourseSemester   |
++-------------+           +-------------+       |  +------------------+
+| id (PK)     |           | id (PK)     |       |  | id (PK)          |
+| name        |           | rno         |       +--| course_id (FK)   |
+| username    |           | name        |          | semester_id (FK) |
+| password    |           | description |          +------------------+
+| email       |           | credit      |
+| department  |-----------| dept_id (FK)|
+| semester    |-----------+-------------+
++-------------+
 
-         |
-         | (used by)
-         |
-         |——>
-         |
-+-------------------------------+
-|   LoanApprovalRequest (DTO)  |
-+-------------------------------+
-| status                        |
-| emi                           |
-| remarks                       |
-+-------------------------------+
+                                ^
+                                |
+                                | n
++------------------+           |
+|   Employee       |-----------+
++------------------+
+| employee_id (PK) |
+| name             |
+| username         |
+| password         |
+| age              |
+| email            |
+| phone_no         |
+| course           |
+| designation      |
++------------------+
+
 ```
 ---
 
 ## 📂 Project Structure
 ```text
-LoanManagementSystem/
+EngineeringCollegeApplication/
 ├── src/
-│ ├── main/
-│ │ ├── java/com/example/loan/
-│ │ │ ├── controller/
-│ │ │ ├── config/ (JWT config)
-│ │ │ ├── model/
-│ │ │ ├── repository/
-│ │ │ ├── service/
-│ │ │ └── util/ (Token utils, report helpers)
-│ │ └── resources/
-│ │ ├── static/ (CSS, JS)
-│ │ ├── templates/ (HTML views)
-│ │ ├── reports/ (JasperReports templates)
-│ │ └── application.properties
-│ └── test/
-│ └── java/com/example/loan/
-│ └── service/ (JUnit tests)
-├── Dockerfile
-├── docker-compose.yml
-├── pom.xml
-└── README.md
+│   ├── main/
+│   │   ├── java/org/example/
+│   │   │   ├── controller/           # Spring MVC controllers
+│   │   │   ├── config/               # Security & Web configurations
+│   │   │   ├── model/                # Entity classes
+│   │   │   ├── repository/           # Spring Data JPA repositories
+│   │   │   ├── service/              # Business logic services
+│   │   │   └── jspConfig/            # JSP view resolver config (if needed)
+│   │   ├── resources/
+│   │   │   └── application.properties # Spring Boot app properties
+│   │   └── webapp/WEB-INF/jsp/       # JSP view templates
+│   │       └── static/               # CSS, JS, images
+│
+│   └── test/
+│       └── java/org/example/
+│           ├── controller/           # Controller test cases
+│           └── service/              # Service layer test cases
+│
+├── Dockerfile                        # Dockerfile for Spring Boot app
+├── docker-compose.yml               # Compose file for multi-container setup
+├── pom.xml                           # Maven configuration file
+└── README.md                         # Project documentation
+
 ```
 ---
 
@@ -161,10 +119,10 @@ LoanManagementSystem/
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/loan-management-system.git
+   git clone https://github.com/Dhivya631/CollegeApplication.git
    cd loan-management-system
     ```
-2. **Build the JAR**
+2. **Build the WAR**
    ```bash
    mvn clean install
    ```
@@ -174,8 +132,8 @@ LoanManagementSystem/
   ```
 5. **Access**
    
-     - App: http://localhost:8083
-     - PostgreSQL: localhost:5433
+     - App: http://localhost:8080
+     - MySQL: localhost:3306
 
 ---
 
@@ -197,45 +155,48 @@ LoanManagementSystem/
 1. **Dockerfile**
 
    ```Dockerfile
-    FROM openjdk:18
+    FROM amazoncorretto:22
     WORKDIR /app
-    COPY target/*.jar loan.jar
-    EXPOSE 8083
-    ENTRYPOINT ["java", "-jar", "loan.jar"]
+    COPY ./target/EngineeringCollegeApplication-1.0-SNAPSHOT.war college.war
+    EXPOSE 8080:8080
+    CMD ["java", "-jar", "college.war"]
    ```
 
 2. **docker-compose.yml**
    ```bash
-   services:
-    postgres:
-      image: postgres:14
-      container_name: loan_postgres
-      environment:
-        POSTGRES_DB: loans
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: password123
-      ports:
-        - "5433:5432"
-      networks:
-        - loan-network
-  
-    springboot-app:
-      build: .
-      container_name: loan_springboot
-      depends_on:
-        - postgres
-      ports:
-        - "8083:8083"
-      environment:
-        SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/loans
-        SPRING_DATASOURCE_USERNAME: postgres
-        SPRING_DATASOURCE_PASSWORD: password123
-        SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      networks:
-        - loan-network
-  
+     services:
+      app:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        container_name: engineeringcollegeapplication
+        depends_on:
+          - mysql
+        environment:
+          SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/ecollege?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: Dhivya@12345
+        ports:
+          - "8080:8080"
+        networks:
+          - spring-net
+    
+      mysql:
+        image: mysql:8.0
+        container_name: mysql-db
+        environment:
+          MYSQL_ROOT_PASSWORD: Dhivya@12345
+          MYSQL_DATABASE: ecollege
+        ports:
+          - "3307:3306"
+        networks:
+          - spring-net
+        command: --default-authentication-plugin=mysql_native_password
+    
     networks:
-      loan-network:
+      spring-net:
+        driver: bridge
+
    ```
 3. **Build and Run Docker:**
    ```bash
