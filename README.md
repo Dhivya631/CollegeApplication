@@ -1,7 +1,8 @@
 # 💰 Engineering College Application
 
 ## 📌 Overview
-The **Engineering College Application** is a comprehensive management system built using Spring Boot, designed to streamline core operations such as student admissions, course scheduling, and faculty management. It features a robust backend architecture with over 90% test coverage using **JUnit** and **JaCoCo**, and ensures high code quality through the integration of SonarLint, making it maintainable and production-ready.
+The Engineering College Application is a comprehensive management system built using Spring Boot, designed to streamline core operations such as student admissions, course scheduling, and faculty management. It features a robust backend architecture with over 90% test coverage using JUnit and JaCoCo, and ensures high code quality through the integration of SonarLint, making it maintainable and production-ready.
+
 ---
 
 ## 🔧 Technology
