@@ -7,14 +7,14 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://college-mysql:3306/ecollege?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+        value: jdbc:mysql://mysql:3306/ecollege?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       - key: SPRING_DATASOURCE_USERNAME
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
         value: Dhivya@12345
 
 databases:
-  - name: college-mysql
+  - name: mysql
     databaseName: ecollege
     user: root
     password: Dhivya@12345
