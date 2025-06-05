@@ -12,15 +12,4 @@ services:
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
         value: Dhivya@12345
-
-  - type: private_service
-    name: mysql
-    env: docker
-    plan: free
-    dockerfilePath: ./mysql/Dockerfile
-    autoDeploy: false
-    envVars:
-      - key: MYSQL_ROOT_PASSWORD
-        value: Dhivya@12345
-      - key: MYSQL_DATABASE
-        value: ecollege
+    dockerComposeFilePath: docker-compose.yml
