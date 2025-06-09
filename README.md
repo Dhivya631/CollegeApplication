@@ -175,8 +175,8 @@ EngineeringCollegeApplication/
           - mysql
         environment:
           SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/ecollege?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-          SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: Dhivya@12345
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
         ports:
           - "8080:8080"
         networks:
@@ -186,7 +186,7 @@ EngineeringCollegeApplication/
         image: mysql:8.0
         container_name: mysql-db
         environment:
-          MYSQL_ROOT_PASSWORD: Dhivya@12345
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
           MYSQL_DATABASE: ecollege
         ports:
           - "3307:3306"
