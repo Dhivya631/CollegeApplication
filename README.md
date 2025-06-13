@@ -86,7 +86,7 @@ The Engineering College Application is a comprehensive management system built u
 ```
 ---
 
-## 📂 Project Structure
+## 📂 Directory Structure
 ```text
 EngineeringCollegeApplication/
 ├── src/
